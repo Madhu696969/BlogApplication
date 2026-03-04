@@ -12,13 +12,11 @@
             .card-body pre {
                 padding: 10px;
             }
-
             .blog-card .cot img {
                 width: 800px;
                 height: 450px;
                 padding-left: 60px;
             }
-
             .blog-card .cot {
                 display: flex;
                 flex-direction: column;
@@ -62,7 +60,7 @@
                     <div class="comment">
                         <form action="Comment/<%= blog._id %>" method="post">
                             <div class="mb-3">
-                                <label for="comment" class="form-label">Comment</label>
+                                <label for="comment" class="form-label">Comment(<%= comments.length %>)</label>
                                 <input type="text" class="form-control" id="comment" name="Comment"
                                     aria-describedby="comment">
                             </div>
