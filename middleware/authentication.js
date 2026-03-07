@@ -3,7 +3,6 @@ const { verifyToken } = require("../Services/Authentication");
 function checkForAuthentication(cookieName){
     return (req,res,next)=>{
         const tokenValue=req.cookies[cookieName];
-
         if(!tokenValue){
             return next();
         }

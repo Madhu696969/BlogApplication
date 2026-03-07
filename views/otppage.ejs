@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head') %>
+        <title>Otp</title>
+        <style>
+            .cont {
+                justify-self: center;
+            }
+            .card{
+                padding: 50px;
+                width: 500px;
+                height: 600px;
+            }
+            p,input,button{
+                margin-left: 90px;
+                margin-top: 30px;
+            }
+
+        </style>
+</head>
+
+<body>
+    <%- include('./partials/nav') %>
+        <div class="cont mt-4">
+            <div class="card">
+                <% if (locals.user) { %>
+                <form action="/user/ValidateOtp" method="post">
+                    <pre>
+we have send an OTP to <%= user.email %>
+                    </pre>
+                    <p>Please Enter valid OTP</p>
+                    <input type="hidden" name="email" value="<%= user.email %>">
+                    <input type="text" placeholder="Enter OTP here" name="otp" required>
+                    <button type="submit">Verify</button>
+                </form>
+                <% } %>
+
+            </div>
+        </div>
+        <%- include('./partials/script') %>
+</body>
+
+</html>

@@ -10,7 +10,7 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/">Home</a>
         </li>
-        <% if (locals.user) { %>
+        <% if (locals.user && locals.user.isVerified) { %>
          <li class="nav-item">
           <a class="nav-link" href="/blog/addblog">Add Blog</a>
         </li>
