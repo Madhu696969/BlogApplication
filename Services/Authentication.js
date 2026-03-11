@@ -5,10 +5,10 @@ function CreateJWTToken(user){
     const payload={
         _id:user.id,
         email:user.email,
-        name:user.FirstName,
+        name:user.FullName,
         profImg:user.profImg,
         role:user.role,
-        isVerified:user.isVerified
+        isVerified:user.isVerified,
     }
     const token=JWT.sign(payload,SECRETKEY);
     return token;

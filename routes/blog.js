@@ -41,7 +41,6 @@ route.get("/:id", async (req, res) => {
         comments,
     })
 });
-
 route.post("/comment/:blogId", async (req, res) => {
     try {
         if (!req.body.Comment || req.body.Comment.trim() === "") {

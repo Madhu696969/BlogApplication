@@ -1,6 +1,7 @@
 const express = require("express");
 const user = require("../models/user");
 const Otp = require("../models/otp");
+const {CreateJWTToken}=require("../Services/Authentication")
 const generateOtp = require("../Utils/GenerateOtp");
 const { sendOTP } = require("../Services/email");
 const route = express.Router();
@@ -20,27 +21,25 @@ route.get("/VerifyOtp", (req, res) => {
 });
 
 route.post("/ValidateOtp", async (req, res) => {
-
     const { email, otp } = req.body;
-
     const record = await Otp.findOne({
         email,
         otp: otp.toString()
     });
-
     if (!record) {
         return res.send("Invalid OTP");
     }
-
     if (record.expireAt < new Date()) {
         return res.send("OTP Expired");
     }
-
     await user.updateOne(
         { email },
         { $set: { isVerified: true } }
     );
-    await record.save();
+    await Otp.deleteOne({ _id: record._id });
+    const updatedUser = await user.findOne({ email });
+    const token = CreateJWTToken(updatedUser);
+    res.cookie("token", token);
     res.redirect("/");
 });
 
@@ -57,6 +56,10 @@ route.post("/signup", async (req, res) => {
 route.post("/signin", async (req, res) => {
     const { email, password } = req.body;
     try {
+        await user.updateOne(
+            { email },
+            { $set: { isVerified: false } }
+        );
         const token = await user.checkMatchAndGenerateToken(email, password);
         console.log(token);
         const otp = generateOtp();

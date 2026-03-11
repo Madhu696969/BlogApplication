@@ -9,6 +9,7 @@ function checkForAuthentication(cookieName){
         try{
         const userPayload=verifyToken(tokenValue);
         req.user=userPayload;
+        res.locals.user = userPayload;
         }
         catch(err){}
         return next();
