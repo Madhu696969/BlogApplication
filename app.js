@@ -9,13 +9,13 @@ const blogRoute=require("./routes/blog");
 const app=express();
 const cookieParser=require("cookie-parser");
 const { checkForAuthentication } = require('./middleware/authentication');
-const PORT=8000 || process.env.PORT
+const PORT = process.env.PORT || 8000;
 
 
 
 mongoose.connect(process.env.MONGO_URL).then(()=>console.log("MongoDb Connected")).catch(err=>console.log(err.message));
 app.set('view engine','ejs');
-app.set('views',path.resolve('./views'));
+app.set("views", path.join(__dirname, "views"));
 
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
